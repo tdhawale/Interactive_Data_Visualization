@@ -1,0 +1,1 @@
+This assignment is the self test for the course
