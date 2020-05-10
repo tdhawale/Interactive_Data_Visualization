@@ -7,24 +7,43 @@
 # https://people.revoledu.com/kardi/tutorial/Regression/nonlinear/NonLinearTransformation.htm
 # https://theailearner.com/tag/log-transformation/
 # https://www.youtube.com/watch?v=qSTv_m-KFk0&list=PLZbbT5o_s2xq7LwI2y8_QtvuXZedL6tQU&index=21
+# https://medium.com/@george.seif94/a-tour-of-the-top-5-sorting-algorithms-with-python-code-43ea9aa02889
 #############################################################################
+# Importing necessary libraries
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 import math as m
-import seaborn as sns
-import matplotlib.gridspec as gridspec
-import matplotlib.patches as pat
-import matplotlib.colors as colors
-import matplotlib.cm as cmx
-import matplotlib as mpl
-import cufflinks as cf
-from plotly.offline import download_plotlyjs
-from plotly.offline import init_notebook_mode
-from plotly.offline import plot , iplot
 from collections import OrderedDict
-#cf.go_offline()
+#############################################################################
+# Sorting algorithm for Median filter (# Reference for sorting)
+# Implementing Merge sort
+def sorting(median_list):
 
+    if len(median_list) <= 1 :
+        return median_list
+    mid = len(median_list) // 2
+    # Perform merge_sort recursively on both halves
+    left , right = sorting(median_list[:mid]) , sorting(median_list[mid :])
+    # Merge each side together
+    return merge(left , right , median_list.copy())
+
+
+def merge(l , r , merged) :
+    lc , rc = 0 , 0
+    while lc < len(l) and rc < len(r) :
+        # Sort each one and place into the result
+        if l[lc] <= r[rc] :
+            merged[lc + rc] = l[lc]
+            lc += 1
+        else :
+            merged[lc + rc] = r[rc]
+            rc += 1
+    for lc in range(lc , len(l)) :
+        merged[lc + rc] = l[lc]
+    for rc in range(rc , len(r)) :
+        merged[lc + rc] = r[rc]
+    
+    return merged
 #############################################################################
 def profile_line(img):
     # Profile line through line 256 of the 2D data set
@@ -37,6 +56,7 @@ def profile_line(img):
     plt.title("Profile line for 256th record")
     ax1.plot(img[256] , label = 'line 256')
     ax1.legend(loc = 1)
+    ax1.set_aspect('equal')
     fig1.savefig('Profile_Line.png' , bbox_inches = "tight" , dpi = 150)
 #############################################################################
 def mean_value(img , sum):
@@ -53,46 +73,47 @@ def variance_value(img , img_mean) :
 def histogram_line(hist) :
     fig2 = plt.figure(figsize= (10,5), dpi=100)
     ax2 = plt.axes()
-    # plt.xlim(0 , val_max)
-    # plt.ylim(0 , 700)
     plt.xlabel("Value")
     plt.ylabel("Count")
     plt.title("Histogram as a line graph")
-    # Sorting the dictonary based on the Key values to represent the histogram as line plot(clear view)
+    # Sorting the dictionary based on the Key values to represent the histogram as line plot(clear view)
     hist = OrderedDict(sorted(hist.items()))
     keys = np.array(np.fromiter(hist.keys() , dtype = float))
     vals = np.array(np.fromiter(hist.values() , dtype = float))
     plt.plot(keys , vals)
+    # ax2.set_aspect('equal')
     fig2.savefig('Histogram_LineGraph.png' , bbox_inches = "tight" , dpi = 150)
 #############################################################################
 # Both linear and nonlinear transformations could have been combined into a single
 # function but to make it modular and reusable separating the functions
 def linear_transf(img , img_dimensions) :
     # Implementing linear function
-    linear_transf = np.zeros((img_dimensions[0] , img_dimensions[1]))
+    linear_transf = np.zeros((img_dimensions[0] , img_dimensions[1]), dtype = 'int')
     for i in range(img_dimensions[0]) :
         for j in range(img_dimensions[1]) :
             # S = T(R) = ((R - Rmin)/(Rmax - Rmin))* Smax
-            linear_transf[i][j] = int(((img[i][j] - val_min) / (val_max - val_min)) * 255)
+            linear_transf[i][j] = round(((img[i][j] - val_min) / (val_max - val_min)) * 255)
     fig3 = plt.figure( )
     ax3 = plt.axes()
     plt.title("Linear Transformation")
     im3 = ax3.imshow(linear_transf)
-    # fig3.colorbar(im3)
+    # ax3.tick_params(labelbottom=True, labeltop=True, labelleft=True, labelright=True,
+    #                  bottom=True, top=True, left=True, right=True)
+    ax3.set_aspect('equal')
     fig3.savefig('Linear_Transformation.png' , bbox_inches = "tight" , dpi = 150)
 
 #############################################################################
 def nonlinear_trans(img , img_dimensions):
     # Implementing non-linear function sigmoid
-    nonlinear_transf = np.zeros((img_dimensions[0] , img_dimensions[1]))
+    nonlinear_transf = np.zeros((img_dimensions[0] , img_dimensions[1]),dtype = 'int')
     for i in range(img_dimensions[0]) :
         for j in range(img_dimensions[1]) :
-            nonlinear_transf[i][j] = m.sqrt(img[i][j])
+            nonlinear_transf[i][j] = round(m.sqrt(img[i][j]))
     fig4 = plt.figure( )
     ax4 = plt.axes()
     plt.title("Non Linear Transformation")
     im4 = ax4.imshow(nonlinear_transf)
-    # fig4.colorbar(im4)
+    ax4.set_aspect('equal')
     fig4.savefig('Nonlinear_Transformation.png' , bbox_inches = "tight" , dpi = 150)
 #############################################################################
 # Smoothing filter
@@ -119,24 +140,25 @@ def smoothing(img , img_dimensions ):
                     median_list.append(img[i + a][j + b] * filter[a][b])
             # Final convolved result for one filter x image element wise multiplication(divide by filter dimension)
             boxcar[i][j] = round(boxcar[i][j] / (filter_dimensions[0] * filter_dimensions[1]))
-            # Sort the median list to determine the meadian value
-            median_list.sort()
+            # Sort the median list to determine the median value
+            median_list = sorting(median_list)
             # Median value(middle of the list)
             median[i][j] = median_list[int(len(median_list) / 2)]
+            # clear median list . median_list.clear()
             median_list = []
-
+  
     fig5 = plt.figure()
     ax5 = plt.axes()
     plt.title("Boxcar Filter")
     im5 = ax5.imshow(boxcar)
-    # fig5.colorbar(im5)
+    ax5.set_aspect('equal')
     fig5.savefig('Boxcar_Filter.png' , bbox_inches = "tight" , dpi = 150)
     
     fig6 = plt.figure()
     ax6 = plt.axes()
     plt.title("Median Filter")
     im6 = ax6.imshow(median)
-    #fig6.colorbar(im6)
+    ax6.set_aspect('equal')
     fig6.savefig('Median_Filter.png' , bbox_inches = "tight" , dpi = 150)
 #############################################################################
 def histogram_bar(hist) :
@@ -149,8 +171,6 @@ def histogram_bar(hist) :
     plt.bar(list(hist.keys()),list(hist.values()))
     fig7.savefig('Histogram_Bar.png' , bbox_inches = "tight" , dpi = 150)
 #############################################################################
-
-
 # Reading the data set
 ct = []
 sum = 0
@@ -173,7 +193,7 @@ with open('slice150.raw' , 'rb') as f :
         if val > val_max:
             val_max = val
         # Determining Histogram without using built in function
-        # Saving the values in dictonary as key value pairs
+        # Saving the values in dictionary as key value pairs
         if val in hist.keys():
             hist[val] += 1
         else :
