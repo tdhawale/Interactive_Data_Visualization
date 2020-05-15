@@ -1,54 +1,43 @@
-# Minutes from 2019-04-24
+# Minutes from 2019-04-01	
 
-Start: 13:00
-End: 13:42
+Start: 16:00	
+End: 16:38	
 
-## Participants
+## Participants	
 
-Check [X] people who were in the meeting.
+Members present for the meeting	
 
-- [X] Lameya
-- [X] Aluri Jagan Mohini
-- [ ] Prajwal
-- [X] Tejas Ravindra
-- [X] Asmaa
-- [X] Indranil
-- [X] Priyanka
-- [X] Pavitra
-- [ ] Al Rahat
-- [X] Nayela Tasnim
-- [ ] Anirudh
-- [X] Chethan Lokesh
-- [X] Abdul
-- [X] Nils Luca
-- [X] Kunal
-- [X] Stefan
-- [X] Asmaa
-- [X] Shraddha Pawar
+- [X] Lameya	
+- [X] Jagan Mohini	
+- [X] Tejas Ravindra	
+- [X] Asmaa	
+- [X] Indranil	
+- [X] Priyanka	
+- [X] Pavitra	
+- [X] Nayela Tasnim	
+- [X] Chethan Lokesh	
+- [X] Abdul	
+- [X] Nils Luca	
+- [X] Kunal	
+- [X] Stefan	
+- [X] Shraddha	
 
-## ToC
+## ToC	
+Weekly Meeting addressing questions related to intermediate draft submission. The advidors also briefed us about the RL problem solving task that we have to implement in a group.	
+### Administrative	
 
-Team AICON had their first weekly meeting with the advisors. The advisors provided a brief about organizational stuff and cleared the doubt of the participants regarding the mini seminar and the things to care for the outline of the seminar.
+- The presentation of the mini seminar will be on 5th June 2020 starting at 11 a.m.	
+- The group presentation of the assigned task will be on the same day after the mini seminar presentations.	
 
-### Administrative
+### Development	
 
-Updating Time Sheet (Google spreadsheet)
-- Participants please update the time sheet before the advisory meetings.
-- Please be little specfic about the work done. 
+- Form a group to solve problems mentioned in the git repository (pracical implemention in groups).	
+- Select a topic which your group will be working on.	
+- Each group should select a different topic, and should implement the problem solution on at least one enviornment.	
+- Intermediate report limit is 4 pages including references.	
+- If reference section is consuming too much space, use survey that includes the reference papers instead of mentioning all the references.	
 
-### Development
 
-- For the mini seminar participants need to write the outline of the seminar. Main features for the outline 
-- Giving a brief about the understanding in your own words.
-- Plagiarism should be avoided at all cost.
-- Write the outline with the context of the author X.Y.Z not as yourself.
-- Participants can add figures or diagrams but please mention its source.
-- Provide the main idea behind and skip some content which are not that useful.
-- Reading the outline the advisors should be able to get the whole idea about your paper.
-- 4 pages strictly.
-- Use the latex formate given or participants can use the IEEE standard paper.
-
-## Action points
-- Updating time sheet individually before the weekly meeting. 
-- Stricly take care of the given deadlines
-- Work on the outline for the mini seminar
+## Action points	
+- [X] Form groups and select a topic.	
+- [X] Start working on the selected topic.
