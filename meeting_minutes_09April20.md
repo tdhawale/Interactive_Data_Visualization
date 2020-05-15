@@ -7,25 +7,23 @@ End: 16:38
 
 Check [X] people who were in the meeting.
 
-- [ ] Lameya
-- [ ] Jagan Mohini
-- [ ] Prajwal
-- [ ] Tejas Ravindra
-- [ ] Asmaa
-- [ ] Indranil
-- [ ] Priyanka
-- [ ] Pavitra
-- [ ] Al Rahat
-- [ ] Nayela Tasnim
-- [ ] Anirudh
-- [ ] Chethan Lokesh
-- [ ] Abdul
-- [ ] Nils Luca
-- [ ] Kunal
-- [ ] Stefan
+- [X] Lameya
+- [X] Jagan Mohini
+- [X] Tejas Ravindra
+- [X] Asmaa
+- [X] Indranil
+- [X] Priyanka
+- [X] Pavitra
+- [X] Nayela Tasnim
+- [X] Chethan Lokesh
+- [X] Abdul
+- [X] Nils Luca
+- [X] Kunal
+- [X] Stefan
+- [X] Shraddha
 
 ## ToC
-
+Discussed General questions regarding the intermediate draft.
 ### Administrative
 
 - bla bla bla
