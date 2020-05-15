@@ -5,7 +5,7 @@ End: 16:38
 
 ## Participants
 
-Check [X] people who were in the meeting.
+Members present for the meeting
 
 - [X] Lameya
 - [X] Jagan Mohini
