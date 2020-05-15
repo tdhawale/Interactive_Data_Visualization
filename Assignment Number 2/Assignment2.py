@@ -56,7 +56,7 @@ def profile_line(img):
     plt.title("Profile line for 256th record")
     ax1.plot(img[256] , label = 'line 256')
     ax1.legend(loc = 1)
-    ax1.set_aspect('equal')
+    # ax1.set_aspect('equal')
     fig1.savefig('Profile_Line.png' , bbox_inches = "tight" , dpi = 150)
 #############################################################################
 def mean_value(img , sum):
@@ -81,7 +81,6 @@ def histogram_line(hist) :
     keys = np.array(np.fromiter(hist.keys() , dtype = float))
     vals = np.array(np.fromiter(hist.values() , dtype = float))
     plt.plot(keys , vals)
-    # ax2.set_aspect('equal')
     fig2.savefig('Histogram_LineGraph.png' , bbox_inches = "tight" , dpi = 150)
 #############################################################################
 # Both linear and nonlinear transformations could have been combined into a single
@@ -101,6 +100,7 @@ def linear_transf(img , img_dimensions) :
     #                  bottom=True, top=True, left=True, right=True)
     ax3.set_aspect('equal')
     fig3.savefig('Linear_Transformation.png' , bbox_inches = "tight" , dpi = 150)
+    return linear_transf
 
 #############################################################################
 def nonlinear_trans(img , img_dimensions):
@@ -108,7 +108,7 @@ def nonlinear_trans(img , img_dimensions):
     nonlinear_transf = np.zeros((img_dimensions[0] , img_dimensions[1]),dtype = 'int')
     for i in range(img_dimensions[0]) :
         for j in range(img_dimensions[1]) :
-            nonlinear_transf[i][j] = round(m.sqrt(img[i][j]))
+            nonlinear_transf[i][j] = round(m.sqrt(img[i][j]+1))
     fig4 = plt.figure( )
     ax4 = plt.axes()
     plt.title("Non Linear Transformation")
@@ -220,13 +220,13 @@ histogram_bar(hist)
 histogram_line(hist)
 ###################################################################################
 #Linear transformation
-linear_transf(img , img_dimensions)
+img_rescaled = linear_transf(img , img_dimensions)
 ###################################################################################
 # Non linear Transformation
-nonlinear_trans(img, img_dimensions)
+nonlinear_trans(img_rescaled, img_dimensions)
 ###################################################################################
 # Smoothing filter
-smoothing(img , img_dimensions )
+smoothing(img_rescaled , img_dimensions )
 ###################################################################################
 # Show figure
 plt.show()
