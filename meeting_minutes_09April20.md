@@ -23,21 +23,21 @@ Check [X] people who were in the meeting.
 - [X] Shraddha
 
 ## ToC
-Discussed General questions regarding the intermediate draft.
+Weekly Meeting addressing questions related to intermediate draft submission. The advidors also briefed us about the RL problem solving task that we have to implement in a group.
 ### Administrative
 
-- bla bla bla
-- we decided to bla bla
+- The presentation of the mini seminar will be on 5th June 2020 starting at 11 a.m.
+- The group presentation of the assigned task will be on the same day after the mini seminar presentations.
 
 ### Development
 
-- ...
+- Form a group to solve problems mentioned in the git repository (pracical implemention in groups).
+- Select a topic which your group will be working on.
+- Each group should select a different topic, and should implement the problem solution on at least one enviornment.
+- Intermediate report limit is 4 pages including references.
+- If reference section is consuming too much space, use survey that includes the reference papers instead of mentioning all the references.
 
-
-### Benchmarking
-
-*
 
 ## Action points
-- [X] Implement B (Assignee 3)
-- [ ] Implement A (Assignee 1)
+- [X] Form groups and select a topic.
+- [X] Start working on the selected topic.
