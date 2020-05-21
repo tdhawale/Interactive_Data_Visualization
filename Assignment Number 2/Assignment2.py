@@ -52,11 +52,10 @@ def profile_line(img):
     plt.xlim(0 , 512)
     plt.ylim(0 , val_max)
     plt.xlabel("X")
-    plt.ylabel("Value")
+    plt.ylabel("Values")
     plt.title("Profile line for 256th record")
-    ax1.plot(img[256] , label = 'line 256')
+    ax1.plot(img[255] , label = 'Line 256')
     ax1.legend(loc = 1)
-    # ax1.set_aspect('equal')
     fig1.savefig('Profile_Line.png' , bbox_inches = "tight" , dpi = 150)
 #############################################################################
 def mean_value(img , sum):
@@ -67,7 +66,6 @@ def variance_value(img , img_mean) :
     for i in range(np.shape(img)[0]) :
         for j in range(np.shape(img)[1]) :
             img_variance = img_variance + pow((img[i][j] - img_mean) , 2)
-    
     return img_variance / (np.shape(img)[0] * np.shape(img)[1])
 #############################################################################
 def histogram_line(hist) :
@@ -95,12 +93,15 @@ def linear_transf(img , img_dimensions) :
     fig3 = plt.figure( )
     ax3 = plt.axes()
     plt.title("Linear Transformation")
-    im3 = ax3.imshow(linear_transf)
+    im3 = ax3.imshow(linear_transf , cmap = 'gray')
     # ax3.tick_params(labelbottom=True, labeltop=True, labelleft=True, labelright=True,
     #                  bottom=True, top=True, left=True, right=True)
     ax3.set_aspect('equal')
+    cb3 = fig3.colorbar( mappable = im3 , orientation = 'vertical' , label = 'Density of Tissue', ticks =
+    [linear_transf.min(), linear_transf.max()])
+    cb3.ax.set_yticklabels(['Low','High'])
+    cb3.set_label('Density of Tissue')
     fig3.savefig('Linear_Transformation.png' , bbox_inches = "tight" , dpi = 150)
-    return linear_transf
 
 #############################################################################
 def nonlinear_trans(img , img_dimensions):
@@ -112,9 +113,14 @@ def nonlinear_trans(img , img_dimensions):
     fig4 = plt.figure( )
     ax4 = plt.axes()
     plt.title("Non Linear Transformation")
-    im4 = ax4.imshow(nonlinear_transf)
+    im4 = ax4.imshow(nonlinear_transf , cmap = 'gray')
     ax4.set_aspect('equal')
     fig4.savefig('Nonlinear_Transformation.png' , bbox_inches = "tight" , dpi = 150)
+    cb4 = fig4.colorbar( mappable = im4 , orientation = 'vertical' , label = 'Density of Tissue', ticks =
+    [nonlinear_transf.min(),nonlinear_transf.max()])
+    # cb4.ax.set_yticklabels(['{}{}{}'.format('Low(', nl_min,')'),'{}{}{}'.format('High(', nl_max,')')])
+    cb4.ax.set_yticklabels(['Low','High'])
+    cb4.set_label('Density of Tissue')
 #############################################################################
 # Smoothing filter
 def smoothing(img , img_dimensions ):
@@ -146,30 +152,28 @@ def smoothing(img , img_dimensions ):
             median[i][j] = median_list[int(len(median_list) / 2)]
             # clear median list . median_list.clear()
             median_list = []
-  
+    
     fig5 = plt.figure()
     ax5 = plt.axes()
     plt.title("Boxcar Filter")
-    im5 = ax5.imshow(boxcar)
+    im5 = ax5.imshow(boxcar , cmap = 'gray')
     ax5.set_aspect('equal')
+    cb5 = fig5.colorbar( mappable = im5 , orientation = 'vertical' , label = 'Density of Tissue', ticks =
+    [boxcar.min(), boxcar.max()])
+    cb5.ax.set_yticklabels(['Low','High'])
+    cb5.set_label('Density of Tissue')
     fig5.savefig('Boxcar_Filter.png' , bbox_inches = "tight" , dpi = 150)
     
     fig6 = plt.figure()
     ax6 = plt.axes()
     plt.title("Median Filter")
-    im6 = ax6.imshow(median)
+    im6 = ax6.imshow(median , cmap = 'gray')
     ax6.set_aspect('equal')
+    cb6 = fig6.colorbar(mappable = im6 , orientation = 'vertical' , label = 'Density of Tissue' , ticks =
+    [median.min() , median.max()])
+    cb6.ax.set_yticklabels(['Low' , 'High'])
+    cb6.set_label('Density of Tissue')
     fig6.savefig('Median_Filter.png' , bbox_inches = "tight" , dpi = 150)
-#############################################################################
-def histogram_bar(hist) :
-    # Plotting histogram as a bar graph plot
-    fig7 = plt.figure()
-    ax7 = plt.axes()
-    plt.xlabel("Value")
-    plt.ylabel("Count")
-    plt.title("Histogram as a bar plot")
-    plt.bar(list(hist.keys()),list(hist.values()))
-    fig7.savefig('Histogram_Bar.png' , bbox_inches = "tight" , dpi = 150)
 #############################################################################
 # Reading the data set
 ct = []
@@ -213,20 +217,17 @@ print("Mean is:",img_mean)
 #Variance Value
 print("Variance:", variance_value(img , img_mean))
 ###################################################################################
-# Histogram as a bar plot
-histogram_bar(hist)
-###################################################################################
 # Histogram as a line graph
 histogram_line(hist)
 ###################################################################################
 #Linear transformation
-img_rescaled = linear_transf(img , img_dimensions)
+linear_transf(img , img_dimensions)
 ###################################################################################
 # Non linear Transformation
-nonlinear_trans(img_rescaled, img_dimensions)
+nonlinear_trans(img, img_dimensions)
 ###################################################################################
 # Smoothing filter
-smoothing(img_rescaled , img_dimensions )
+smoothing(img , img_dimensions )
 ###################################################################################
 # Show figure
 plt.show()
