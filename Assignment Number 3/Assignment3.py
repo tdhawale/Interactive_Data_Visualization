@@ -78,6 +78,7 @@ def profile_line(band):
 # Histogram
 ################################################################################################
 def histogram_line(hist) :
+    # Zoom in the output to observe the difference
     fig2 = plt.figure(figsize= (10,5), dpi=100)
     ax2 = plt.axes()
     plt.xlabel("Value")
