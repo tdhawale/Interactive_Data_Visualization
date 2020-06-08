@@ -65,13 +65,15 @@ def profile_line(band):
     band = band.reshape(size,size)
     # Getting the index of the row which has the maximum value
     pl = np.argmax(np.max(band, axis=1))
-    fig1 = plt.figure(figsize= (10,5), dpi=100)
+    fig1 = plt.figure(figsize= (10,6), dpi=100)
     ax1 = plt.axes()
+    ax1.margins(x=0)
     plt.xlabel("X")
-    plt.ylabel("Values")
+    plt.ylabel("Values \n (Measured in log scale)")
     plt.title("Profile line for maximum value of the data set ")
     ax1.plot(band[pl] , label = 'Record {}'.format(pl+1))
     ax1.legend(loc = 1)
+    plt.yscale('log')
     fig1.savefig('Profile_Line.png' , bbox_inches = "tight" , dpi = 150)
 
 ################################################################################################
@@ -79,16 +81,18 @@ def profile_line(band):
 ################################################################################################
 def histogram_line(hist) :
     # Zoom in the output to observe the difference
-    fig2 = plt.figure(figsize= (10,5), dpi=100)
+    fig2 = plt.figure(figsize= (10,7), dpi=100)
     ax2 = plt.axes()
-    plt.xlabel("Value")
-    plt.ylabel("Count")
+    plt.xlabel("Value \n (Measured in log scale)")
+    plt.ylabel("Count \n (Measured in log scale)")
     plt.title("Histogram as a line graph")
     # Sorting the dictionary based on the Key values to represent the histogram as line plot(clear view)
     hist = OrderedDict(sorted(hist.items()))
-    keys = np.array(np.fromiter(hist.keys() , dtype = int))
-    vals = np.array(np.fromiter(hist.values() , dtype = int))
+    keys = np.array(np.fromiter(hist.keys() , dtype = float))
+    vals = np.array(np.fromiter(hist.values() , dtype = float))
     plt.plot(keys , vals)
+    plt.xscale('log')
+    plt.yscale('log')
     fig2.savefig('Histogram.png' , bbox_inches = "tight" , dpi = 150)
 
 ################################################################################################
@@ -104,19 +108,20 @@ def rescale(band, log_min , log_max):
             if log > 0 :
                 val = (log - log_min) / (log_max - log_min) * 255
                 rescaled.append(val)
-                
+    #0.92, -0.05
     # Reshaping data to 500x500
-    rescaled = np.asarray(rescaled).reshape(500 , 500)
-    # nonlinear_transf = nonlinear_transf.reshape((500,500))
-    fig4 = plt.figure( )
+    rescaled = np.asarray(rescaled).reshape(size , size)
+    fig4 = plt.figure(figsize= (8,7) )
     ax4 = plt.axes()
     plt.title("Rescaled Image")
     im4 = ax4.imshow(rescaled , cmap = 'gray' , label = ["Max" , "Min"])
     ax4.set_aspect('equal')
     max_patch = mpatches.Patch(color = 'white' , label = 'Maximum Value {}'.format(rescaled.max()))
     min_patch = mpatches.Patch(color = 'black' , label = 'Min Value {}'.format(rescaled.min()))
-    plt.legend(handles = [max_patch, min_patch], bbox_to_anchor=(0.92, -0.05) , fancybox=True, shadow=True,
+    plt.legend(handles = [max_patch, min_patch], bbox_to_anchor=(0.82, -0.08) , fancybox=True, shadow=True,
                facecolor="gray", fontsize='small',  ncol=2)
+    plt.xlabel("X Values")
+    plt.ylabel("Y Values")
     fig4.savefig('Rescaled.png' , bbox_inches = "tight" , dpi = 150)
 
 ################################################################################################
@@ -183,6 +188,8 @@ def hist_combine(band_r , band_g , band_b):
     plt.title("Combined band")
     im6 = ax6.imshow(combine_data)
     ax6.set_aspect('equal')
+    plt.xlabel("X Values")
+    plt.ylabel("Y Values")
     fig6.savefig('Combined.png' , bbox_inches = "tight" , dpi = 150)
     
 ################################################################################################
@@ -216,52 +223,3 @@ equalised_band4 = hist_equalisation(band4 , hist4, 'Band 4 (Wavelength 100 µm)'
 hist_combine(equalised_band4 , equalised_band3 , equalised_band1)
 
 plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# import pandas as pd
-# # arr = np.array(['a5','a4','a3','a2','a1','b5','b4','b3','b2','b1','c5','c4','c3','c2','c1']).reshape(3,5)
-# # # arr = np.array([1,2,3,4,5])
-# # arr_reversed = np.flip(arr , 1)
-# # print(arr)
-# # print(arr_reversed.reshape(3,5))
-# import re
